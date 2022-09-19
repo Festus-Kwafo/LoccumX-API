@@ -5,8 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import config
 from accounts import models
-from accounts.routers import authentication, users
+from accounts.routers import authentication, register_users
+from jobs.routers import create_jobs
 from database import engine
+
 
 app = FastAPI()
 
@@ -39,8 +41,9 @@ def info(settings: config.Settings = Depends(get_settings)):
         "admin_email": settings.admin_email,
     }
 
-app.include_router(users.router)
+app.include_router(register_users.router)
 app.include_router(authentication.router)
+app.include_router(create_jobs.router)
 
 
 
