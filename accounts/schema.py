@@ -16,17 +16,17 @@ class User(UserBase):
     is_verified: bool
     is_active: bool
 
-    class Config:
+    class Config():
         orm_mode = True
         
 class UserInDB(User):
     hashed_password: str
 
 class LocumBase(BaseModel):
-    profile_image: str
-    gender: str
-    about_me: Union[str, None] = None
-    service = str
+    profile_image: str | None = None
+    gender: str | None = None
+    about_me: str | None = None
+    service : str | None = None 
 
 class UpdateLocum(LocumBase):
     pass
@@ -34,9 +34,9 @@ class UpdateLocum(LocumBase):
 class Locum(LocumBase):
     id: int
     user_id: int
-
-    class Config:
-        orm_mode =True
+    
+    class Config():
+        orm_mode = True
 
 class InstitutionBase(BaseModel):
     location : str
@@ -51,7 +51,7 @@ class Institution(InstitutionBase):
     id: int
     user_id : int
 
-    class Config:
+    class Config():
         orm_mode = True
 
 class Token(BaseModel):
@@ -60,8 +60,8 @@ class Token(BaseModel):
     token_type: str
 
 class TokenData(BaseModel):
-    email: Union[str, None] = None
-    exp: Union[int, None] = None
+    email: str | None = None
+    exp: int | None = None
 
 
 

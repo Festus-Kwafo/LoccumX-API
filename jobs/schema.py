@@ -2,7 +2,8 @@ from datetime import datetime, date
 from pydantic import BaseModel
 
 class JobBase(BaseModel):
-    title : str
+    id: int
+    title : str 
     location: str
     name_organization: str
 
@@ -15,10 +16,10 @@ class CreateJob(JobBase):
     expiry_date: date
 
 class Job(CreateJob):
-    id: int
+
     created_by: int
     created_on: datetime
 
-    class Config:
+    class Config():
         orm_mode = True
 

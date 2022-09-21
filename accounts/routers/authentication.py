@@ -13,7 +13,7 @@ from ..utils import (ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_MINUTES,
 
 router = APIRouter(
     prefix='/api/v1',
-    tags=['Authentication']
+    tags=['Authenticate Users']
 )
 
 

@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -6,9 +7,18 @@ from database import get_db
 
 router = APIRouter(
     prefix='/api/v1',
-    tags=["Create Users"]
+    tags=["Users"]
 )
 
+@router.get('/users/locum', summary="Get All locum users")
+def get_all_locum(db: Session = Depends(get_db)):
+    response = views.get_locum_users(db)
+    return response
+
+@router.get("/users/institution", summary="Get all Institution users", response_model=List[schema.User])
+def get_all_institution(db: Session=Depends(get_db)):
+    response = views.get_institution_users(db)
+    return response
 
 @router.post('/register/locum', response_model=schema.User)
 def create_locum_user(user: schema.CreateUser, db: Session = Depends(get_db)):
