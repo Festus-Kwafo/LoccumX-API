@@ -63,7 +63,28 @@ class TokenData(BaseModel):
     email: str | None = None
     exp: int | None = None
 
+class UserLocum(BaseModel):
+    id : int
+    user_id: int
+    email : str 
+    is_locum : bool
+    is_active : bool
+    is_verified: bool
+    about_me: str | None = None
+    gender: str | None = None
+    service: str | None = None
 
+class UserInstitution(BaseModel):
+    id : int 
+    user_id: int
+    email : str 
+    is_institution : bool
+    is_active : bool
+    is_verified: bool
+    name_of_organisation: str | None = None
+    service: str | None = None
+    location: str | None = None
+    
 
     
 

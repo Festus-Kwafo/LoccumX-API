@@ -23,8 +23,8 @@ def create_jobs(request: schema.CreateJob, db: Session = Depends(get_db), curren
     response = views.create_jobs(request, db, current_user)
     return response
 
-@router.get('/jobs', summary="View are jobs in the System", response_model=List[schema.Job])
-def get_all_jobs(db: Session = Depends(get_db)):
+@router.get('/jobs', summary="View are jobs in the System", response_model=List[schema.Job], )
+def get_all_jobs(db: Session = Depends(get_db), current_user = Depends(get_current_user)):
     return views.all_job(db)
 
 
