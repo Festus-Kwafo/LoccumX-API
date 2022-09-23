@@ -29,12 +29,12 @@ models.Base.metadata.create_all(bind=engine)
 def get_settings():
     return config.Settings()
 
-@app.get('/')
+@app.get('/', tags=['Main'])
 def root():
     context = {"Hello": "Api is working Fine"}
     return context
 
-@app.get("/info")
+@app.get("/info", tags=['Main'])
 def info(settings: config.Settings = Depends(get_settings)):
     return {
         "app_name": settings.app_name,

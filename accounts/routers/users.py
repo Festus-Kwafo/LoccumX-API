@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from accounts import schema, views
@@ -29,4 +29,24 @@ def create_locum_user(user: schema.CreateUser, db: Session = Depends(get_db)):
 @router.post('/register/institution', response_model=schema.User)
 def create_institution_user(user: schema.CreateUser, db: Session = Depends(get_db)):
     response = views.create_institution_user(db=db, user=user)
+    return response
+
+@router.get('/user/locum/{id}', summary="Get locum user by id", response_model=schema.UserLocum)
+def get_locum_user(id: int, db: Session = Depends(get_db)):
+    response = views.get_Locum_user_by_id(db, id)
+    if response == -1:
+        raise HTTPException(
+            status_code= status.HTTP_404_NOT_FOUND,
+            detail= f"There is no user with the id {id}"
+        )
+    return response
+
+@router.get('/user/institution/{id}', summary="Get Institution user by id", response_model=schema.UserInstitution)
+def get_Institution_user(id: int, db: Session = Depends(get_db)):
+    response = views.get_Institution_user_by_id(db, id)
+    if response == -1:
+        raise HTTPException(
+            status_code= status.HTTP_404_NOT_FOUND,
+            detail=f"There is no user with the id {id}"
+        )
     return response
